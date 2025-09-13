@@ -1,0 +1,295 @@
+[gd_scene load_steps=22 format=3 uid="uid://brj32bi6ykihg"]
+
+[ext_resource type="Script" uid="uid://bmljhjngsvsyk" path="res://main.gd" id="1_6bp64"]
+[ext_resource type="Texture2D" uid="uid://b2u06mhsffn3j" path="res://Assets/background.png" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://2d52jjpiy810" path="res://Scenes/player.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://doyqw2lamcotd" path="res://Scenes/enemy_1.tscn" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://dcjmtxp8xbkjp" path="res://Scenes/enemy_2.tscn" id="4_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://brlweybnfvo8p" path="res://Scenes/enemy_3.tscn" id="4_kry3j"]
+[ext_resource type="FontFile" uid="uid://q0sf6hlmh7ic" path="res://Assets/Font/arcadeclassic/ARCADECLASSIC.TTF" id="6_21xkr"]
+[ext_resource type="Texture2D" uid="uid://casi1o6jni2hv" path="res://Assets/planets/planet_main_scene1.png" id="8_wsu2k"]
+[ext_resource type="Texture2D" uid="uid://ntteai17ycn1" path="res://Assets/planets/planet_main_scene2.png" id="9_k12tt"]
+[ext_resource type="Texture2D" uid="uid://b33cg2pc61d1w" path="res://Assets/planets/planet_main_scene3.png" id="10_h1bgf"]
+[ext_resource type="Texture2D" uid="uid://yysfwmtg825l" path="res://Assets/planets/planet_main_scene4.png" id="11_b3802"]
+[ext_resource type="Texture2D" uid="uid://nqdxgc15ffrs" path="res://Assets/planets/planet_main_scene5.png" id="12_fevyy"]
+[ext_resource type="Texture2D" uid="uid://dyx555c21ulla" path="res://Assets/planets/planet_main_scene6.png" id="13_hibaj"]
+[ext_resource type="Texture2D" uid="uid://pyodkn4wrb53" path="res://Assets/planets/planet_main_scene7.png" id="14_pdsj5"]
+[ext_resource type="Texture2D" uid="uid://b4i16vdmg8hm7" path="res://Assets/planets/planet_main_scene8.png" id="15_ee4r6"]
+[ext_resource type="AudioStream" uid="uid://cc17b37jbeca8" path="res://Assets/sound/puzzle_espacial.ogg" id="16_k12tt"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_7u77a"]
+distance = -640.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jjgbg"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bo1nx"]
+normal = Vector2(-1, 0)
+distance = -360.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8gbba"]
+normal = Vector2(0, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gt3je"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_wsu2k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_k12tt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_h1bgf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_b3802")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_fevyy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_hibaj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_pdsj5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ee4r6")
+}],
+"loop": true,
+"name": &"planet",
+"speed": 2.0
+}]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_6bp64")
+
+[node name="Area2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(180, 320)
+texture = ExtResource("1_jjgbg")
+
+[node name="Node" type="Node" parent="Area2D/Sprite2D"]
+
+[node name="CollisionButtom" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_7u77a")
+
+[node name="CollisionLeft" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_jjgbg")
+
+[node name="CollisionRigth" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("WorldBoundaryShape2D_bo1nx")
+
+[node name="CollisionTop" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(151, 0)
+shape = SubResource("WorldBoundaryShape2D_8gbba")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(290, 245)
+sprite_frames = SubResource("SpriteFrames_gt3je")
+animation = &"planet"
+autoplay = "planet"
+frame_progress = 0.993878
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_bo1nx")]
+position = Vector2(180, 600)
+
+[node name="Enemy_2" parent="." instance=ExtResource("4_jjvhh")]
+position = Vector2(120, 525)
+
+[node name="Enemy_3" parent="." instance=ExtResource("4_kry3j")]
+position = Vector2(240, 525)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("3_8gbba")]
+position = Vector2(180, 525)
+
+[node name="Enemies_1" type="Node" parent="."]
+
+[node name="StaticBody2D2" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 425)
+
+[node name="StaticBody2D3" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 400)
+
+[node name="StaticBody2D4" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 375)
+
+[node name="StaticBody2D5" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 350)
+
+[node name="StaticBody2D6" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 325)
+
+[node name="StaticBody2D7" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 300)
+
+[node name="StaticBody2D8" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 275)
+
+[node name="StaticBody2D9" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 250)
+
+[node name="StaticBody2D10" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 225)
+
+[node name="StaticBody2D11" parent="Enemies_1" instance=ExtResource("3_8gbba")]
+position = Vector2(180, 200)
+
+[node name="Enemies_2" type="Node" parent="."]
+
+[node name="Enemy_4" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 425)
+
+[node name="Enemy_5" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 400)
+
+[node name="Enemy_6" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 375)
+
+[node name="Enemy_7" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 350)
+
+[node name="Enemy_8" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 325)
+
+[node name="Enemy_9" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 300)
+
+[node name="Enemy_10" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 275)
+
+[node name="Enemy_11" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 250)
+
+[node name="Enemy_12" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 225)
+
+[node name="Enemy_13" parent="Enemies_2" instance=ExtResource("4_jjvhh")]
+position = Vector2(150, 200)
+
+[node name="Enemies_3" type="Node" parent="."]
+
+[node name="Enemy_4" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 425)
+
+[node name="Enemy_5" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 400)
+
+[node name="Enemy_6" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 375)
+
+[node name="Enemy_7" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 350)
+
+[node name="Enemy_8" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 325)
+
+[node name="Enemy_9" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 300)
+
+[node name="Enemy_10" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 275)
+
+[node name="Enemy_11" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 250)
+
+[node name="Enemy_12" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 225)
+
+[node name="Enemy_13" parent="Enemies_3" instance=ExtResource("4_kry3j")]
+position = Vector2(210, 200)
+
+[node name="Labels" type="Node" parent="."]
+
+[node name="Controls" type="Label" parent="Labels"]
+offset_left = 16.0
+offset_top = 196.0
+offset_right = 106.0
+offset_bottom = 470.0
+theme_override_fonts/font = ExtResource("6_21xkr")
+theme_override_font_sizes/font_size = 15
+text = "Controls
+
+W --- Up
+A  ---Left
+S  ---Down
+D ---Right
+Space - Dash
+
+Try!!!
+
+Enter 
+	- Start game/
+next level"
+
+[node name="Title" type="Label" parent="Labels"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -114.5
+offset_top = 36.0
+offset_right = 114.5
+offset_bottom = 69.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_21xkr")
+theme_override_font_sizes/font_size = 31
+text = "Cross the ships"
+
+[node name="Instructions" type="Label" parent="Labels"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -167.5
+offset_top = 83.0
+offset_right = 167.5
+offset_bottom = 192.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("6_21xkr")
+theme_override_font_sizes/font_size = 15
+text = "How   to   play?
+Select a  ship   type, cross the  ships  asteroids 
+with  the same   type  as  you  and save  the   planet
+ before   the   time   and  munition  gets   empty"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("16_k12tt")
+autoplay = true
+
+[connection signal="player_loose" from="CharacterBody2D" to="." method="_on_character_body_2d_player_loose"]
+[connection signal="convert_player_enemy_2" from="Enemy_2" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_3" from="Enemy_3" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_1" from="StaticBody2D" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D2" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D3" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D4" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D5" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D6" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D7" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D8" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D9" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D10" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_1" from="Enemies_1/StaticBody2D11" to="CharacterBody2D" method="_on_static_body_2d_convert_player_enemy_1"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_4" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_5" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_6" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_7" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_8" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_9" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_10" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_11" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_12" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_2" from="Enemies_2/Enemy_13" to="CharacterBody2D" method="_on_enemy_2_convert_player_enemy_2"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_4" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_5" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_6" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_7" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_8" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_9" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_10" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_11" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_12" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
+[connection signal="convert_player_enemy_3" from="Enemies_3/Enemy_13" to="CharacterBody2D" method="_on_enemy_3_convert_player_enemy_3"]
